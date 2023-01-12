@@ -1,5 +1,5 @@
 #include "protheus.ch"
-#include 'totvs.ch'
+#include "totvs.ch"
 
 user Function PLTELINS()
     Local oDlg, oGet, cSalario := space(20), cNome := space(60)
@@ -16,11 +16,11 @@ user Function PLTELINS()
     @ 80,40 GET oGet VAR cSalario SIZE 100,10 OF oDlg PIXEL VALID !empty(cSalario)
    
     oTButton1 := TButton():New( 115, 30, "Fechar",oDlg,{||oDlg:End()}, 40,25,,,.F.,.T.,.F.,,.F.,,,.F. )
-    oTButton1:setCss("background: #0099DD; border-radius: 15%; border: solid 1px white; font: bold;")
+    oTButton1:setCss("background: red; border-radius: 15%; border: solid 1px white; font: bold;")
     oTButton2 := TButton():New( 115, 75, "Calcular",oDlg,{||fwmsgrun(,{||calculoMensagem(cSalario, cNome)},,"Calculando...")}, 40,25,,,.F.,.T.,.F.,,.F.,,,.F. ) 
     oTButton2:setCss("background: #0099DD; border-radius: 15%; border8: solid 1px white; font: bold;")
     oTButton3 := TButton():New( 115, 120, "Adicionar",oDlg,{||salvar(cNome, cSalario)}, 40,25,,,.F.,.T.,.F.,,.F.,,,.F. ) 
-    oTButton3:setCss("background: #0099DD; border-radius: 15%; border8: solid 1px white; font: bold;")
+    oTButton3:setCss("background: green; border-radius: 15%; border8: solid 1px white; font: bold;")
     ACTIVATE DIALOG oDlg CENTERED
 return
 
@@ -116,4 +116,9 @@ Static Function salvar(cNome, cSalario)
     ZZ1->(ConfirmSX8())
     mensagem2()
 return
+
+User Function getCalInss()
+    Local nSalario := M->ZZ1_SALARI
+    Local nDesconto := PLCALINS(cValToChar(nSalario))
+return nDesconto
 
