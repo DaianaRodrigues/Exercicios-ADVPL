@@ -2,6 +2,7 @@
 #include "FWMVCDEF.ch"
 #include "FWBROWSE.ch"
 
+//Cria a janela do Browse
 User Function PLTEINSS()
     Local oBrowse
     Private aRotina := MenuDef()
@@ -12,6 +13,7 @@ User Function PLTEINSS()
     oBrowse:Activate()
 return
 
+//Cria o menu com botões ação 
 Static Function MenuDef()
     Local aRotina := {}
     ADD OPTION aRotina TITLE "Calculo de INSS" ACTION "u_PLTELINS" OPERATION 3 ACCESS 0
@@ -19,10 +21,9 @@ Static Function MenuDef()
     ADD OPTION aRotina TITLE "Incluir" ACTION "VIEWDEF.PLTELINSS" OPERATION 3 ACCESS 0
     ADD OPTION aRotina TITLE "Excluir" ACTION "VIEWDEF.PLTELINSS" OPERATION 5 ACCESS 0
     ADD OPTION aRotina TITLE "Alterar" ACTION "VIEWDEF.PLTELINSS" OPERATION 4 ACCESS 0
-
 return aRotina
 
-Static Function ModelDef()
+Static Function ModelDef() 
     Local oModel
     Local oStructZZ1 := FWFormStruct( 1, "ZZ1")
     oModel := MPFormModel():new("ModelCalINSS")
@@ -41,5 +42,4 @@ Static Function ViewDef()
     oView:CreateHorizontalBox("Box", 100)
     oView:setOwnerView("ViewZZ1", "Box")
 return oView
-
-User Function 
+ 

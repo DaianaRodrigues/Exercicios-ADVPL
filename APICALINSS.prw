@@ -36,7 +36,7 @@ WSMethod POST IncInss WSService calculo
         oModel:setValue("MasterZZ1" , "ZZ1_NOME" , oJson["nome"])
         oModel:setValue("MasterZZ1" , "ZZ1_SALARI" , oJson["salario"])
 
-    EndCase 
+    EndCase
 
     IF oModel:VldData()
     oModel:commitData()
