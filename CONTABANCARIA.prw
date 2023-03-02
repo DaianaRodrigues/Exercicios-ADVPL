@@ -10,7 +10,7 @@ Static Function pesFisica()
     
     DEFINE DIALOG oDlg TITLE "Cadastro Bancario" FROM 100,100 TO 600,500 PIXEL
 
-    @ 10,10 GROUP oGrp TO 200,180 LABEL decodeUtf8("Informe os seus dados!") PIXEL 
+    @ 10,10 GROUP oGrp TO 300,180 LABEL decodeUtf8("Informe os seus dados!") PIXEL 
 
     @ 30,60 SAY decodeUtf8("Nome:") SIZE 100,10 OF oDlg PIXEL
     @ 40,40 GET oGet VAR cNome SIZE 100,10 OF oDlg PIXEL VALID !empty(cNome) 
@@ -24,12 +24,11 @@ Static Function pesFisica()
     @ 120,60 SAY decodeUtf8("Email:") SIZE 50,10 OF oDlg PIXEL
     @ 130,40 GET oGet VAR cEmail SIZE 100,10 OF oDlg PIXEL VALID !empty(cEmail)
 
-    oTButton1 := TButton():New( 180, 30, "Fechar",oDlg,{||oDlg:End()}, 40,25,,,.F.,.T.,.F.,,.F.,,,.F. )
+    oTButton1 := TButton():New( 180, 30, "Fechar",oDlg,{||PLTELBAN()}, 40,25,,,.F.,.T.,.F.,,.F.,,,.F. )
     oTButton1:setCss("background: red; border-radius: 15%; border: solid 1px white; font: bold;")
     oTButton3 := TButton():New( 180, 80, "Cadastrar",oDlg,{||salvar(cNome, nCpf, nTel, cEmail)}, 40,25,,,.F.,.T.,.F.,,.F.,,,.F. ) 
     oTButton3:setCss("background: green; border-radius: 15%; border8: solid 1px white; font: bold;")
     ACTIVATE DIALOG oDlg CENTERED
-
 return
 
 Static Function PesJurid()
@@ -41,7 +40,7 @@ Static Function PesJurid()
     
     DEFINE DIALOG oDlg TITLE "Cadastro Bancario" FROM 100,100 TO 600,500 PIXEL
 
-    @ 10,10 GROUP oGrp TO 200,180 LABEL decodeUtf8("Informe os seus dados!") PIXEL
+    @ 10,10 GROUP oGrp TO 300,180 LABEL decodeUtf8("Informe os seus dados!") PIXEL
 
     @ 30,60 SAY decodeUtf8("Nome Fantasia:") SIZE 100,10 OF oDlg PIXEL
     @ 40,40 GET oGet VAR cNomeFanta SIZE 100,10 OF oDlg PIXEL VALID !empty(cNomeFanta) 
@@ -55,7 +54,7 @@ Static Function PesJurid()
     @ 120,60 SAY decodeUtf8("Email:") SIZE 50,10 OF oDlg PIXEL
     @ 130,40 GET oGet VAR cEmailJu SIZE 100,10 OF oDlg PIXEL VALID !empty(cEmailJu)
 
-    oTButton1 := TButton():New( 180, 30, "Fechar",oDlg,{||oDlg:End()}, 40,25,,,.F.,.T.,.F.,,.F.,,,.F. )
+    oTButton1 := TButton():New( 180, 30, "Fechar",oDlg,{||PLTELBAN()}, 40,25,,,.F.,.T.,.F.,,.F.,,,.F. )
     oTButton1:setCss("background: red; border-radius: 15%; border: solid 1px white; font: bold;")
     oTButton3 := TButton():New( 180, 80, "Cadastrar",oDlg,{||salvar(cNomeFanta, nCnpj, nTelJu, cEmailJu)}, 40,25,,,.F.,.T.,.F.,,.F.,,,.F. ) 
     oTButton3:setCss("background: green; border-radius: 15%; border8: solid 1px white; font: bold;")
@@ -71,11 +70,48 @@ user Function PLTELBAN()
 
     @ 30,60 SAY decodeUtf8("Escolha o tipo de cadastro: ") SIZE 100,10 OF oDlg PIXEL
 
-    oTButton1 := TButton():New( 80, 50, "Pessoa Fisica",oDlg,{||pesFisica()}, 50,30,,,.F.,.T.,.F.,,.F.,,,.F. )
+    oTButton1 := TButton():New( 80, 40, "Pessoa Fisica",oDlg,{||pesFisica()}, 50,30,,,.F.,.T.,.F.,,.F.,,,.F. )
     oTButton1:setCss("background: blue; border-radius: 15%; border: solid 1px white; font: bold;")
     oTButton3 := TButton():New( 80, 95, "Pessoa Juridica",oDlg,{||PesJurid()}, 50,30,,,.F.,.T.,.F.,,.F.,,,.F. ) 
     oTButton3:setCss("background: Blue; border-radius: 15%; border8: solid 1px white; font: bold;")
     ACTIVATE DIALOG oDlg CENTERED
+return
+
+Class criarConta
+    
+endclass
+
+Class conta
+    PROTECTED DATA nTotalDigito
+    PROTECTED DATA nTotalMaximo
+    PROTECTED DATA nNumero
+    PROTECTED DATA nSaldo 
+
+    PUBLIC METHOD new() Constructor
+    PUBLIC METHOD nGerarNumeros()
+    PUBLIC METHOD nSaldo()
+    PUBLIC METHOD nContaCorrente()
+endclass
+
+METHOD new() Class conta
+    Self:nTotalDigito := 5
+    Self:nTotalMaximo := 10
+return
+
+METHOD nGerarNumeros() Class conta
+    FOR nGerarNumeros := 0 TO Self:nTotalDigito - 1 STEP nGerarNumeros++
+    Self:nNumero := Randomize(nTotalMaximo)
+    EXIT
+    Self:nNumero := "-"
+    Self:nNumero := Randomize(nTotalMaximo)
+return
+
+METHOD nContaCorrente()
+    Local nChequeEspecial := nSaldo * 0.1
+    Local cMensagem := ""
+    cMensagem := decodeUtf8("Saldo: " + nSaldo)
 
 return
+
+
 

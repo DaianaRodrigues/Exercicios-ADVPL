@@ -24,6 +24,14 @@ user Function PLTELINS()
     ACTIVATE DIALOG oDlg CENTERED
 return
 
+/*
++===========================================+
+| Programa: C�lculo do INSS |
+| Autor : Daiana Rodrigues Nascimento |
+| Data : 15/12/22 |
++===========================================+
+*/
+
 Static Function PLCALINS(cSalario)
 
 Local nsalario := Val(cSalario)
@@ -70,19 +78,7 @@ EndIf
 
 return ncontribuicao
 
-/*/{Protheus.doc} nomeStaticFunction
-    (long_description)
-    @type  Static Function
-    @author user
-    @since date
-    @version version
-    @param param, param_type, param_descr
-    @return return, return_type, return_description
-    @example
-    (examples)
-    @see (links_or_references)
-    /*/
- Static Function mensagem(nsalario, ncontribuicao, cNome)
+Static Function mensagem(nsalario, ncontribuicao, cNome)
     Local cMensagem := " "
     cMensagem := decodeUtf8("O nome da pessoa é <b>" + cNome + "</b>" + chr(13) + chr(10) +;
     "O salário bruto informado foi de R$ " + Transform(nsalario, "@E 9999,9999.99") + chr(13) + chr(10) + ;
